@@ -1,0 +1,8 @@
+.registro{
+    
+    padding: 3px;
+    border: 1px white solid;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 4fr 2fr; 
+    text-align: center;
+}

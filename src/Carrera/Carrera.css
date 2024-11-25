@@ -1,0 +1,12 @@
+.carrera{
+    display: flex;
+    flex-direction: column;
+    border: 2px grey solid;
+    padding: 5px;
+}
+
+.carrera-bases{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    text-align: center;
+}
