@@ -1,13 +1,24 @@
+import React from 'react';
 import './Materia.css';
 
-const Materia = () => {
+type MateriaProps = {
+  nombre: string;
+  hs: number;
+  año: number;
+  equivalente: number;
+  cuentaMaterias: (tildada: boolean) => void;
+};
+
+const Materia = ({ nombre, hs, cuentaMaterias, equivalente }: MateriaProps)  => {
+  const modificaEstado = (e: React.ChangeEvent<HTMLInputElement>) => {
+    cuentaMaterias(e.target.checked);
+  }
   return (
-    <div className='registro'>
-        <input type="checkbox" name="done" id="done" />
-        <p>403</p>
-        <p>Nombre_Materia</p>
-        <p>120</p>
-    </div>
+    <li className='registro' key={equivalente}>
+        <input type="checkbox" name="done" id="done" onChange={modificaEstado} />
+        <p>{nombre}</p>
+        <p>{hs}</p>
+    </li>
   )
 }
 

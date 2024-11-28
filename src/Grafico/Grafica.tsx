@@ -5,17 +5,21 @@ import { CanvasRenderer } from 'echarts/renderers';
 
 echarts.use([GaugeChart, CanvasRenderer]);
 
-const Grafica = () => {
-  // Referencia al elemento DOM donde se renderizará el gráfico
+type GraficaProps = {
+  val: number;
+};
+
+const Grafica = ({ val }: GraficaProps) => {
   const chartRef = useRef<HTMLDivElement>(null);
+  const myChartRef = useRef<echarts.EChartsType | null>(null);
 
   useEffect(() => {
     if (!chartRef.current) return;
 
-    // Inicializa el gráfico
-    const myChart = echarts.init(chartRef.current, 'dark');
+    // Inicializa el gráfico solo una vez
+    myChartRef.current = echarts.init(chartRef.current, 'dark');
+    const myChart = myChartRef.current;
 
-    // Configuración del gráfico
     const option: echarts.ComposeOption<GaugeSeriesOption> = {
       series: [
         {
@@ -57,28 +61,43 @@ const Grafica = () => {
           },
           detail: {
             valueAnimation: true,
-            fontSize: 40,
+            fontSize: 30,
             offsetCenter: [0, '80%'],
           },
           data: [
             {
-              value: 50,
+              value: val,
             },
           ],
         },
       ],
     };
 
-    // Aplica la configuración al gráfico
     myChart.setOption(option);
 
-    // Limpia el gráfico al desmontar el componente
     return () => {
       myChart.dispose();
     };
   }, []);
 
-  return <div ref={chartRef} style={{ width: '100%', height: '400px' }}></div>;
+  useEffect(() => {
+    // Actualiza el valor del gráfico cuando `val` cambie
+    if (myChartRef.current) {
+      myChartRef.current.setOption({
+        series: [
+          {
+            data: [
+              {
+                value: val,
+              },
+            ],
+          },
+        ],
+      });
+    }
+  }, [val]);
+
+  return <div ref={chartRef} style={{ width: '100%', height: '300%' }}></div>;
 };
 
 export default Grafica;

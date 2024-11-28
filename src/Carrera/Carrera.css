@@ -2,11 +2,26 @@
     display: flex;
     flex-direction: column;
     border: 2px grey solid;
+    border-radius: 5px;
     padding: 5px;
+    max-width: 350px;
+}
+
+.carrera h2{
+    font-size: 18px;
 }
 
 .carrera-bases{
     display: grid;
     grid-template-columns: 2fr 1fr;
     text-align: center;
+}
+.carrera-bases p {
+    margin: 2px;
+    font-size: 14px;
+}
+
+.grafica{
+    margin: 5px;
+    
 }
